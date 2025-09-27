@@ -2,44 +2,36 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Ingreso a Discoteca</title>
+  <title>Validación</title>
 </head>
 <body>
 
-  <h2>Validación de ingreso</h2>
-
-  <label>Edad:</label>
-  <input type="number" id="edad">
-
-  <label>Género (m/f):</label>
-  <input type="text" id="genero">
-
-  <button onclick="validar()">Validar</button>
-
-  <p id="resultado"></p>
-
   <script>
     function validar() {
-      let edad = document.getElementById("edad").value;
-      let genero = document.getElementById("genero").value.toLowerCase();
+      let edad = parseInt(prompt("Ingrese su edad:"));
+      let genero = prompt("Ingrese su género (m/f):").trim().toLowerCase();
       let resultado = "";
 
-      if (edad === "" && genero === "") {
+      if (isNaN(edad) && genero === "") {
         resultado = "Campos vacíos";
-      } else if (edad < 18 && genero === "") {
-        resultado = "Menor de edad sin género";
-      } else if (edad >= 18 && genero === "") {
-        resultado = "Mayor de edad sin género";
-      } else if (edad >= 18 && (genero === "m" || genero === "f")) {
-        resultado = genero === "m" ? "Entrada: Q100.00" : "Entrada: Q75.00 + Bebida";
-      } else if (edad >= 18 && genero !== "m" && genero !== "f") {
+      } else if (isNaN(edad)) {
+        resultado = "Edad inválida";
+      } else if (genero === "") {
+        resultado = edad < 18 ? "Menor de edad sin género" : "Mayor de edad sin género";
+      } else if (genero !== "m" && genero !== "f") {
         resultado = "Género incorrecto";
+      } else if (edad < 18) {
+        resultado = "No se permite el ingreso a menores de edad";
       } else {
-        resultado = "Condición no válida";
+        resultado = genero === "m" ? "Entrada: Q100.00" : "Entrada: Q75.00 + Bebida";
       }
+      console.log(resultado);
+      alert(resultado);
+      
 
-      document.getElementById("resultado").textContent = resultado;
     }
+    // Ejecutar automáticamente al cargar la página
+    validar();
   </script>
 
 </body>
