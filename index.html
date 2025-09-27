@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ingreso a Discoteca</title>
+</head>
+<body>
+
+  <h2>Validación de ingreso</h2>
+
+  <label>Edad:</label>
+  <input type="number" id="edad">
+
+  <label>Género (m/f):</label>
+  <input type="text" id="genero">
+
+  <button onclick="validar()">Validar</button>
+
+  <p id="resultado"></p>
+
+  <script>
+    function validar() {
+      let edad = document.getElementById("edad").value;
+      let genero = document.getElementById("genero").value.toLowerCase();
+      let resultado = "";
+
+      if (edad === "" && genero === "") {
+        resultado = "Campos vacíos";
+      } else if (edad < 18 && genero === "") {
+        resultado = "Menor de edad sin género";
+      } else if (edad >= 18 && genero === "") {
+        resultado = "Mayor de edad sin género";
+      } else if (edad >= 18 && (genero === "m" || genero === "f")) {
+        resultado = genero === "m" ? "Entrada: Q100.00" : "Entrada: Q75.00 + Bebida";
+      } else if (edad >= 18 && genero !== "m" && genero !== "f") {
+        resultado = "Género incorrecto";
+      } else {
+        resultado = "Condición no válida";
+      }
+
+      document.getElementById("resultado").textContent = resultado;
+    }
+  </script>
+
+</body>
+</html>
